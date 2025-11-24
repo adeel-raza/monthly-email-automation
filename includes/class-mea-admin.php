@@ -10,6 +10,9 @@ if (!defined('ABSPATH')) {
 class MEA_Admin {
     
     public function init() {
+        // Add admin menu
+        add_action('admin_menu', array($this, 'add_admin_menu'));
+        
         // Add meta boxes
         add_action('add_meta_boxes', array($this, 'add_meta_boxes'));
         
@@ -30,6 +33,20 @@ class MEA_Admin {
         add_action('wp_ajax_mea_save_recipients', array($this, 'ajax_save_recipients'));
         add_action('wp_ajax_mea_load_recipients', array($this, 'ajax_load_recipients'));
         add_action('wp_ajax_mea_delete_recipients', array($this, 'ajax_delete_recipients'));
+    }
+    
+    /**
+     * Add admin menu
+     */
+    public function add_admin_menu() {
+        add_submenu_page(
+            'edit.php?post_type=mea_automated_email',
+            __('Recipient Lists', 'monthly-email-automation'),
+            __('Recipient Lists', 'monthly-email-automation'),
+            'manage_options',
+            'mea-recipient-lists',
+            array($this, 'render_recipient_lists_page')
+        );
     }
     
     /**
@@ -110,45 +127,46 @@ class MEA_Admin {
             <tr>
                 <th><label for="mea_recipients"><?php esc_html_e('Recipients', 'monthly-email-automation'); ?></label></th>
                 <td>
-                    <div id="mea-recipients-container">
-                        <?php if (!empty($recipients_array)): ?>
-                            <?php foreach ($recipients_array as $index => $email): ?>
-                                <div class="mea-recipient-row" style="margin-bottom: 5px;">
-                                    <input type="email" name="mea_recipients[]" value="<?php echo esc_attr($email); ?>" class="regular-text" />
-                                    <button type="button" class="button mea-remove-recipient"><?php esc_html_e('Remove', 'monthly-email-automation'); ?></button>
-                                </div>
+                    <div style="margin-bottom: 10px;">
+                        <label for="mea-recipient-list-select" style="display: block; margin-bottom: 5px;">
+                            <strong><?php esc_html_e('Select Saved List:', 'monthly-email-automation'); ?></strong>
+                        </label>
+                        <select id="mea-recipient-list-select" style="width: 100%; max-width: 400px;">
+                            <option value=""><?php esc_html_e('-- Select a saved list or add individual recipients --', 'monthly-email-automation'); ?></option>
+                            <?php
+                            $saved_lists = get_option('mea_saved_recipients', array());
+                            foreach ($saved_lists as $key => $list): ?>
+                                <option value="<?php echo esc_attr($key); ?>" data-recipients="<?php echo esc_attr(wp_json_encode($list['recipients'])); ?>">
+                                    <?php echo esc_html($list['name']); ?> (<?php echo count($list['recipients']); ?> recipients)
+                                </option>
                             <?php endforeach; ?>
-                        <?php else: ?>
-                            <div class="mea-recipient-row" style="margin-bottom: 5px;">
-                                <input type="email" name="mea_recipients[]" value="" class="regular-text" placeholder="email@example.com" />
-                                <button type="button" class="button mea-remove-recipient"><?php esc_html_e('Remove', 'monthly-email-automation'); ?></button>
-                            </div>
-                        <?php endif; ?>
+                        </select>
+                        <p class="description" style="margin-top: 5px;">
+                            <?php esc_html_e('Select a saved recipient list, or add individual recipients below.', 'monthly-email-automation'); ?>
+                            <a href="<?php echo esc_url(admin_url('edit.php?post_type=mea_automated_email&page=mea-recipient-lists')); ?>"><?php esc_html_e('Manage lists', 'monthly-email-automation'); ?></a>
+                        </p>
                     </div>
-                    <button type="button" class="button" id="mea-add-recipient"><?php esc_html_e('Add Recipient', 'monthly-email-automation'); ?></button>
-                    <p class="description"><?php esc_html_e('Add one or more email addresses to receive this automated email.', 'monthly-email-automation'); ?></p>
                     
                     <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd;">
-                        <strong><?php esc_html_e('Saved Recipient Lists:', 'monthly-email-automation'); ?></strong>
-                        <div style="margin-top: 10px;">
-                            <select id="mea-saved-recipients" style="width: 300px; margin-right: 5px;">
-                                <option value=""><?php esc_html_e('-- Select a saved list --', 'monthly-email-automation'); ?></option>
-                                <?php
-                                $saved_lists = get_option('mea_saved_recipients', array());
-                                foreach ($saved_lists as $key => $list): ?>
-                                    <option value="<?php echo esc_attr($key); ?>" data-recipients="<?php echo esc_attr(json_encode($list['recipients'])); ?>">
-                                        <?php echo esc_html($list['name']); ?> (<?php echo count($list['recipients']); ?> recipients)
-                                    </option>
+                        <label style="display: block; margin-bottom: 5px;">
+                            <strong><?php esc_html_e('Individual Recipients:', 'monthly-email-automation'); ?></strong>
+                        </label>
+                        <div id="mea-recipients-container">
+                            <?php if (!empty($recipients_array)): ?>
+                                <?php foreach ($recipients_array as $index => $email): ?>
+                                    <div class="mea-recipient-row" style="margin-bottom: 5px;">
+                                        <input type="email" name="mea_recipients[]" value="<?php echo esc_attr($email); ?>" class="regular-text" placeholder="email@example.com" />
+                                        <button type="button" class="button mea-remove-recipient"><?php esc_html_e('Remove', 'monthly-email-automation'); ?></button>
+                                    </div>
                                 <?php endforeach; ?>
-                            </select>
-                            <button type="button" class="button" id="mea-load-recipients"><?php esc_html_e('Load', 'monthly-email-automation'); ?></button>
-                            <button type="button" class="button" id="mea-delete-recipients"><?php esc_html_e('Delete', 'monthly-email-automation'); ?></button>
+                            <?php else: ?>
+                                <div class="mea-recipient-row" style="margin-bottom: 5px;">
+                                    <input type="email" name="mea_recipients[]" value="" class="regular-text" placeholder="email@example.com" />
+                                    <button type="button" class="button mea-remove-recipient"><?php esc_html_e('Remove', 'monthly-email-automation'); ?></button>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                        <div style="margin-top: 10px;">
-                            <input type="text" id="mea-save-recipients-name" placeholder="<?php esc_attr_e('Enter name for this list', 'monthly-email-automation'); ?>" style="width: 200px; margin-right: 5px;" />
-                            <button type="button" class="button button-primary" id="mea-save-recipients"><?php esc_html_e('Save Current Recipients', 'monthly-email-automation'); ?></button>
-                        </div>
-                        <p class="description"><?php esc_html_e('Save your recipient lists to reuse them in other emails.', 'monthly-email-automation'); ?></p>
+                        <button type="button" class="button" id="mea-add-recipient"><?php esc_html_e('Add Recipient', 'monthly-email-automation'); ?></button>
                     </div>
                 </td>
             </tr>
@@ -588,6 +606,162 @@ class MEA_Admin {
         } else {
             wp_send_json_error(array('message' => __('Failed to delete recipient list.', 'monthly-email-automation')));
         }
+    }
+    
+    /**
+     * Render recipient lists management page
+     */
+    public function render_recipient_lists_page() {
+        // Handle form submission
+        if (isset($_POST['mea_save_list']) && check_admin_referer('mea_save_recipient_list', 'mea_recipient_list_nonce')) {
+            $list_name = isset($_POST['list_name']) ? sanitize_text_field(wp_unslash($_POST['list_name'])) : '';
+            $recipients_raw = isset($_POST['recipients']) ? wp_unslash($_POST['recipients']) : array();
+            
+            if (!empty($list_name) && is_array($recipients_raw) && !empty($recipients_raw)) {
+                $recipients = array();
+                foreach ($recipients_raw as $email) {
+                    $email = sanitize_email($email);
+                    if (!empty($email) && is_email($email)) {
+                        $recipients[] = $email;
+                    }
+                }
+                
+                if (!empty($recipients)) {
+                    $saved_lists = get_option('mea_saved_recipients', array());
+                    $key = sanitize_key($list_name);
+                    $counter = 1;
+                    while (isset($saved_lists[$key])) {
+                        $key = sanitize_key($list_name) . '-' . $counter;
+                        $counter++;
+                    }
+                    
+                    $saved_lists[$key] = array(
+                        'name' => $list_name,
+                        'recipients' => $recipients,
+                    );
+                    
+                    update_option('mea_saved_recipients', $saved_lists);
+                    echo '<div class="notice notice-success"><p>' . esc_html__('Recipient list saved successfully!', 'monthly-email-automation') . '</p></div>';
+                }
+            }
+        }
+        
+        // Handle deletion
+        if (isset($_GET['delete']) && isset($_GET['_wpnonce']) && wp_verify_nonce($_GET['_wpnonce'], 'delete_recipient_list_' . $_GET['delete'])) {
+            $key = sanitize_text_field($_GET['delete']);
+            $saved_lists = get_option('mea_saved_recipients', array());
+            if (isset($saved_lists[$key])) {
+                unset($saved_lists[$key]);
+                update_option('mea_saved_recipients', $saved_lists);
+                echo '<div class="notice notice-success"><p>' . esc_html__('Recipient list deleted successfully!', 'monthly-email-automation') . '</p></div>';
+            }
+        }
+        
+        $saved_lists = get_option('mea_saved_recipients', array());
+        ?>
+        <div class="wrap">
+            <h1><?php esc_html_e('Recipient Lists', 'monthly-email-automation'); ?></h1>
+            <p><?php esc_html_e('Manage your saved recipient lists. These lists can be reused across multiple automated emails.', 'monthly-email-automation'); ?></p>
+            
+            <div style="display: flex; gap: 20px; margin-top: 20px;">
+                <div style="flex: 1;">
+                    <h2><?php esc_html_e('Add New List', 'monthly-email-automation'); ?></h2>
+                    <form method="post" action="">
+                        <?php wp_nonce_field('mea_save_recipient_list', 'mea_recipient_list_nonce'); ?>
+                        <table class="form-table">
+                            <tr>
+                                <th><label for="list_name"><?php esc_html_e('List Name', 'monthly-email-automation'); ?></label></th>
+                                <td>
+                                    <input type="text" id="list_name" name="list_name" class="regular-text" required />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><label for="recipients"><?php esc_html_e('Recipients', 'monthly-email-automation'); ?></label></th>
+                                <td>
+                                    <div id="mea-admin-recipients-container">
+                                        <div class="mea-recipient-row" style="margin-bottom: 5px;">
+                                            <input type="email" name="recipients[]" class="regular-text" placeholder="email@example.com" />
+                                            <button type="button" class="button mea-remove-recipient"><?php esc_html_e('Remove', 'monthly-email-automation'); ?></button>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="button" id="mea-admin-add-recipient"><?php esc_html_e('Add Recipient', 'monthly-email-automation'); ?></button>
+                                </td>
+                            </tr>
+                        </table>
+                        <p class="submit">
+                            <input type="submit" name="mea_save_list" class="button button-primary" value="<?php esc_attr_e('Save List', 'monthly-email-automation'); ?>" />
+                        </p>
+                    </form>
+                </div>
+                
+                <div style="flex: 1;">
+                    <h2><?php esc_html_e('Saved Lists', 'monthly-email-automation'); ?></h2>
+                    <?php if (empty($saved_lists)): ?>
+                        <p><?php esc_html_e('No recipient lists saved yet.', 'monthly-email-automation'); ?></p>
+                    <?php else: ?>
+                        <table class="wp-list-table widefat fixed striped">
+                            <thead>
+                                <tr>
+                                    <th><?php esc_html_e('List Name', 'monthly-email-automation'); ?></th>
+                                    <th><?php esc_html_e('Recipients', 'monthly-email-automation'); ?></th>
+                                    <th><?php esc_html_e('Actions', 'monthly-email-automation'); ?></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($saved_lists as $key => $list): ?>
+                                    <tr>
+                                        <td><strong><?php echo esc_html($list['name']); ?></strong></td>
+                                        <td>
+                                            <?php echo count($list['recipients']); ?> <?php esc_html_e('recipients', 'monthly-email-automation'); ?>
+                                            <details style="margin-top: 5px;">
+                                                <summary style="cursor: pointer; color: #0073aa;"><?php esc_html_e('View emails', 'monthly-email-automation'); ?></summary>
+                                                <ul style="margin: 5px 0 0 20px;">
+                                                    <?php foreach ($list['recipients'] as $email): ?>
+                                                        <li><?php echo esc_html($email); ?></li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            </details>
+                                        </td>
+                                        <td>
+                                            <a href="<?php echo esc_url(wp_nonce_url(add_query_arg(array('delete' => $key)), 'delete_recipient_list_' . $key)); ?>" 
+                                               class="button button-small" 
+                                               onclick="return confirm('<?php esc_attr_e('Are you sure you want to delete this list?', 'monthly-email-automation'); ?>');">
+                                                <?php esc_html_e('Delete', 'monthly-email-automation'); ?>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+        jQuery(document).ready(function($) {
+            // Add recipient
+            $('#mea-admin-add-recipient').on('click', function() {
+                var newRow = $('<div class="mea-recipient-row" style="margin-bottom: 5px;">' +
+                    '<input type="email" name="recipients[]" class="regular-text" placeholder="email@example.com" />' +
+                    '<button type="button" class="button mea-remove-recipient"><?php esc_js_e('Remove', 'monthly-email-automation'); ?></button>' +
+                    '</div>');
+                $('#mea-admin-recipients-container').append(newRow);
+            });
+            
+            // Remove recipient
+            $(document).on('click', '.mea-remove-recipient', function() {
+                var container = $('#mea-admin-recipients-container');
+                var rows = container.find('.mea-recipient-row');
+                if (rows.length > 1) {
+                    $(this).closest('.mea-recipient-row').remove();
+                } else {
+                    $(this).closest('.mea-recipient-row').find('input').val('');
+                }
+            });
+        });
+        </script>
+        <?php
     }
 }
 

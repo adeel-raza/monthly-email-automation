@@ -56,6 +56,26 @@ jQuery(document).ready(function($) {
         }
     });
     
+    // Load saved recipient list when selected
+    $('#mea-recipient-list-select').on('change', function() {
+        var selectedOption = $(this).find('option:selected');
+        var recipientsData = selectedOption.data('recipients');
+        
+        if (recipientsData && recipientsData.length > 0) {
+            // Clear existing recipients
+            $('#mea-recipients-container').empty();
+            
+            // Add recipients from selected list
+            $.each(recipientsData, function(index, email) {
+                var newRow = $('<div class="mea-recipient-row" style="margin-bottom: 5px;">' +
+                    '<input type="email" name="mea_recipients[]" value="' + email + '" class="regular-text" placeholder="email@example.com" />' +
+                    '<button type="button" class="button mea-remove-recipient">Remove</button>' +
+                    '</div>');
+                $('#mea-recipients-container').append(newRow);
+            });
+        }
+    });
+    
     // Save recipients list
     $('#mea-save-recipients').on('click', function() {
         var name = $('#mea-save-recipients-name').val().trim();
