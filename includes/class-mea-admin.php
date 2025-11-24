@@ -191,17 +191,6 @@ class MEA_Admin {
                 </td>
             </tr>
         </table>
-        <p class="description">
-            <strong><?php esc_html_e('Note:', 'monthly-email-automation'); ?></strong><br>
-            <?php esc_html_e('The email will be sent on the specified day and time each month. If the day doesn\'t exist in a month (e.g., Feb 30), it will be sent on the last day of that month.', 'monthly-email-automation'); ?>
-        </p>
-        
-        <hr style="margin: 20px 0;">
-        
-        <p class="description">
-            <strong><?php esc_html_e('Email Content:', 'monthly-email-automation'); ?></strong><br>
-            <?php esc_html_e('Use the main content editor above to write your email content. You can use HTML formatting.', 'monthly-email-automation'); ?>
-        </p>
         <?php
     }
     
