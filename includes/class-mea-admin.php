@@ -180,7 +180,7 @@ class MEA_Admin {
                 <th><label for="mea_day_of_month"><?php esc_html_e('Day of Month', 'monthly-email-automation'); ?></label></th>
                 <td>
                     <input type="number" id="mea_day_of_month" name="mea_day_of_month" value="<?php echo esc_attr($day_of_month); ?>" min="1" max="31" step="1" class="small-text" style="width: 80px;" />
-                    <p class="description"><?php esc_html_e('Day of the month to send this email (1-31). If the day doesn\'t exist in a month (e.g., Feb 30), it will be sent on the last day of that month.', 'monthly-email-automation'); ?></p>
+                    <p class="description"><?php esc_html_e('Day of the month to send this email (1-31).', 'monthly-email-automation'); ?></p>
                 </td>
             </tr>
             <tr>
@@ -214,7 +214,7 @@ class MEA_Admin {
                 <th><label for="mea_day_of_month"><?php esc_html_e('Day of Month', 'monthly-email-automation'); ?></label></th>
                 <td>
                     <input type="number" id="mea_day_of_month" name="mea_day_of_month" value="<?php echo esc_attr($day_of_month); ?>" min="1" max="31" step="1" class="small-text" style="width: 80px;" />
-                    <p class="description"><?php esc_html_e('Day of the month to send this email (1-31). If the day doesn\'t exist in a month (e.g., Feb 30), it will be sent on the last day of that month.', 'monthly-email-automation'); ?></p>
+                    <p class="description"><?php esc_html_e('Day of the month to send this email (1-31).', 'monthly-email-automation'); ?></p>
                 </td>
             </tr>
             <tr>
