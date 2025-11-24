@@ -647,8 +647,8 @@ class MEA_Admin {
         }
         
         // Handle deletion
-        if (isset($_GET['delete']) && isset($_GET['_wpnonce']) && wp_verify_nonce($_GET['_wpnonce'], 'delete_recipient_list_' . $_GET['delete'])) {
-            $key = sanitize_text_field($_GET['delete']);
+        if (isset($_GET['delete']) && isset($_GET['_wpnonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_GET['_wpnonce'])), 'delete_recipient_list_' . sanitize_text_field(wp_unslash($_GET['delete'])))) {
+            $key = sanitize_text_field(wp_unslash($_GET['delete']));
             $saved_lists = get_option('mea_saved_recipients', array());
             if (isset($saved_lists[$key])) {
                 unset($saved_lists[$key]);
