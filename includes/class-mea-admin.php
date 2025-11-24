@@ -615,6 +615,7 @@ class MEA_Admin {
         // Handle form submission
         if (isset($_POST['mea_save_list']) && check_admin_referer('mea_save_recipient_list', 'mea_recipient_list_nonce')) {
             $list_name = isset($_POST['list_name']) ? sanitize_text_field(wp_unslash($_POST['list_name'])) : '';
+            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitized in loop below
             $recipients_raw = isset($_POST['recipients']) ? wp_unslash($_POST['recipients']) : array();
             
             if (!empty($list_name) && is_array($recipients_raw) && !empty($recipients_raw)) {
