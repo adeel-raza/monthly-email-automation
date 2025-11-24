@@ -46,15 +46,6 @@ class MEA_Admin {
         );
         
         add_meta_box(
-            'mea_schedule_settings',
-            __('Schedule Settings', 'monthly-email-automation'),
-            array($this, 'render_schedule_meta_box'),
-            'mea_automated_email',
-            'normal',
-            'high'
-        );
-        
-        add_meta_box(
             'mea_email_logs',
             __('Email Logs', 'monthly-email-automation'),
             array($this, 'render_logs_meta_box'),
@@ -87,6 +78,16 @@ class MEA_Admin {
             $status = 'active';
         }
         $last_sent = get_post_meta($post->ID, '_mea_last_sent', true);
+        
+        // Get schedule settings
+        $day_of_month = get_post_meta($post->ID, '_mea_day_of_month', true);
+        $send_time = get_post_meta($post->ID, '_mea_send_time', true);
+        if (empty($day_of_month)) {
+            $day_of_month = 1;
+        }
+        if (empty($send_time)) {
+            $send_time = '09:00';
+        }
         
         // Parse recipients
         $recipients_array = array();
@@ -170,6 +171,33 @@ class MEA_Admin {
             </tr>
             <?php endif; ?>
         </table>
+        
+        <hr style="margin: 20px 0;">
+        
+        <h3 style="margin-top: 0;"><?php esc_html_e('Schedule Settings', 'monthly-email-automation'); ?></h3>
+        <table class="form-table">
+            <tr>
+                <th><label for="mea_day_of_month"><?php esc_html_e('Day of Month', 'monthly-email-automation'); ?></label></th>
+                <td>
+                    <input type="number" id="mea_day_of_month" name="mea_day_of_month" value="<?php echo esc_attr($day_of_month); ?>" min="1" max="31" step="1" class="small-text" style="width: 80px;" />
+                    <p class="description"><?php esc_html_e('Day of the month to send this email (1-31). If the day doesn\'t exist in a month (e.g., Feb 30), it will be sent on the last day of that month.', 'monthly-email-automation'); ?></p>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="mea_send_time"><?php esc_html_e('Send Time', 'monthly-email-automation'); ?></label></th>
+                <td>
+                    <input type="time" id="mea_send_time" name="mea_send_time" value="<?php echo esc_attr($send_time); ?>" />
+                    <p class="description"><?php esc_html_e('Time of day to send the email (24-hour format).', 'monthly-email-automation'); ?></p>
+                </td>
+            </tr>
+        </table>
+        <p class="description">
+            <strong><?php esc_html_e('Note:', 'monthly-email-automation'); ?></strong><br>
+            <?php esc_html_e('The email will be sent on the specified day and time each month. If the day doesn\'t exist in a month (e.g., Feb 30), it will be sent on the last day of that month.', 'monthly-email-automation'); ?>
+        </p>
+        
+        <hr style="margin: 20px 0;">
+        
         <p class="description">
             <strong><?php esc_html_e('Email Content:', 'monthly-email-automation'); ?></strong><br>
             <?php esc_html_e('Use the main content editor above to write your email content. You can use HTML formatting.', 'monthly-email-automation'); ?>
