@@ -133,7 +133,7 @@ class MEA_Admin {
                             <button type="button" class="button" id="mea-delete-recipients"><?php esc_html_e('Delete', 'monthly-email-automation'); ?></button>
                         </div>
                         <div style="margin-top: 10px;">
-                            <input type="text" id="mea-save-recipients-name" placeholder="<?php esc_attresc_html_e('Enter name for this list', 'monthly-email-automation'); ?>" style="width: 200px; margin-right: 5px;" />
+                            <input type="text" id="mea-save-recipients-name" placeholder="<?php esc_attr_e('Enter name for this list', 'monthly-email-automation'); ?>" style="width: 200px; margin-right: 5px;" />
                             <button type="button" class="button button-primary" id="mea-save-recipients"><?php esc_html_e('Save Current Recipients', 'monthly-email-automation'); ?></button>
                         </div>
                         <p class="description"><?php esc_html_e('Save your recipient lists to reuse them in other emails.', 'monthly-email-automation'); ?></p>
