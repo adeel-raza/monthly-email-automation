@@ -41,8 +41,18 @@ jQuery(document).ready(function($) {
         var subject = $('#mea_subject').val();
         if (!subject || subject.trim() === '') {
             e.preventDefault();
-            alert('Please enter an email subject.');
+            alert('Please enter an email subject. This field is required.');
+            $('#mea_subject').focus();
             return false;
+        }
+        
+        // Validate subject length (recommended max 78 characters for email clients)
+        if (subject.length > 78) {
+            if (!confirm('Email subject is longer than 78 characters. Some email clients may truncate it. Do you want to continue?')) {
+                e.preventDefault();
+                $('#mea_subject').focus();
+                return false;
+            }
         }
     });
     

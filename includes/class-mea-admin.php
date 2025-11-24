@@ -77,6 +77,10 @@ class MEA_Admin {
         
         $recipients = get_post_meta($post->ID, '_mea_recipients', true);
         $subject = get_post_meta($post->ID, '_mea_subject', true);
+        // If no subject set, use post title as default
+        if (empty($subject)) {
+            $subject = $post->post_title;
+        }
         $status = get_post_meta($post->ID, '_mea_status', true);
         // Default to 'active' if status is empty (new post)
         if (empty($status)) {
@@ -95,6 +99,13 @@ class MEA_Admin {
         
         ?>
         <table class="form-table">
+            <tr>
+                <th><label for="mea_subject"><?php esc_html_e('Email Subject', 'monthly-email-automation'); ?> <span style="color: red;">*</span></label></th>
+                <td>
+                    <input type="text" id="mea_subject" name="mea_subject" value="<?php echo esc_attr($subject); ?>" class="regular-text" required />
+                    <p class="description"><?php esc_html_e('Subject line for the email. This is required and will be used as the email subject when sending.', 'monthly-email-automation'); ?></p>
+                </td>
+            </tr>
             <tr>
                 <th><label for="mea_recipients"><?php esc_html_e('Recipients', 'monthly-email-automation'); ?></label></th>
                 <td>
@@ -138,13 +149,6 @@ class MEA_Admin {
                         </div>
                         <p class="description"><?php esc_html_e('Save your recipient lists to reuse them in other emails.', 'monthly-email-automation'); ?></p>
                     </div>
-                </td>
-            </tr>
-            <tr>
-                <th><label for="mea_subject"><?php esc_html_e('Email Subject', 'monthly-email-automation'); ?></label></th>
-                <td>
-                    <input type="text" id="mea_subject" name="mea_subject" value="<?php echo esc_attr($subject); ?>" class="regular-text" />
-                    <p class="description"><?php esc_html_e('Subject line for the email.', 'monthly-email-automation'); ?></p>
                 </td>
             </tr>
             <tr>
@@ -301,9 +305,24 @@ class MEA_Admin {
             update_post_meta($post_id, '_mea_recipients', wp_json_encode($recipients));
         }
         
-        // Save subject
+        // Save subject (required field)
         if (isset($_POST['mea_subject'])) {
-            update_post_meta($post_id, '_mea_subject', sanitize_text_field(wp_unslash($_POST['mea_subject'])));
+            $subject = sanitize_text_field(wp_unslash($_POST['mea_subject']));
+            if (!empty($subject)) {
+                update_post_meta($post_id, '_mea_subject', $subject);
+            } else {
+                // If empty, use post title as fallback
+                $post = get_post($post_id);
+                if ($post) {
+                    update_post_meta($post_id, '_mea_subject', $post->post_title);
+                }
+            }
+        } else {
+            // If not set, use post title as default
+            $post = get_post($post_id);
+            if ($post) {
+                update_post_meta($post_id, '_mea_subject', $post->post_title);
+            }
         }
         
         // Save day of month
@@ -338,6 +357,7 @@ class MEA_Admin {
         $new_columns = array();
         $new_columns['cb'] = $columns['cb'];
         $new_columns['title'] = $columns['title'];
+        $new_columns['mea_subject'] = __('Email Subject', 'monthly-email-automation');
         $new_columns['mea_recipients'] = __('Recipients', 'monthly-email-automation');
         $new_columns['mea_schedule'] = __('Schedule', 'monthly-email-automation');
         $new_columns['mea_status'] = __('Status', 'monthly-email-automation');
@@ -352,6 +372,15 @@ class MEA_Admin {
      */
     public function render_custom_columns($column, $post_id) {
         switch ($column) {
+            case 'mea_subject':
+                $subject = get_post_meta($post_id, '_mea_subject', true);
+                if (!empty($subject)) {
+                    echo esc_html($subject);
+                } else {
+                    echo '<span style="color: #999;">—</span>';
+                }
+                break;
+                
             case 'mea_recipients':
                 $recipients = get_post_meta($post_id, '_mea_recipients', true);
                 if (!empty($recipients)) {
