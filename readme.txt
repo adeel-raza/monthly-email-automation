@@ -85,7 +85,7 @@ Schedule and automate recurring email campaigns, newsletters, and recurring emai
 
 1. Upload the `monthly-email-automation` folder to `/wp-content/plugins/`
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Go to "recurring emails" in the admin menu to create your first automated email
+3. Go to "Email Scheduler" in the admin menu to create your first automated email
 
 == Frequently Asked Questions ==
 
