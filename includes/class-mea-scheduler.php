@@ -3,7 +3,7 @@
  * Scheduler for Email Scheduler
  */
 
-if (!defined('ABSPATH')) {
+if ( ! defined('ABSPATH')) {
     exit;
 }
 

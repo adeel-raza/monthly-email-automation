@@ -3,7 +3,7 @@
  * Email Sender for Automated Emails
  */
 
-if (!defined('ABSPATH')) {
+if ( ! defined('ABSPATH')) {
     exit;
 }
 

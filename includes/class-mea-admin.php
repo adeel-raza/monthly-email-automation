@@ -3,7 +3,7 @@
  * Admin Interface for Managing Automated Emails
  */
 
-if (!defined('ABSPATH')) {
+if ( ! defined('ABSPATH')) {
     exit;
 }
 
@@ -41,8 +41,8 @@ class MEA_Admin {
     public function add_admin_menu() {
         add_submenu_page(
             'edit.php?post_type=mea_automated_email',
-            __('Recipient Lists', 'monthly-email-automation'),
-            __('Recipient Lists', 'monthly-email-automation'),
+            __('Recipient Lists', 'email-scheduler'),
+            __('Recipient Lists', 'email-scheduler'),
             'manage_options',
             'mea-recipient-lists',
             array($this, 'render_recipient_lists_page')
@@ -55,7 +55,7 @@ class MEA_Admin {
     public function add_meta_boxes() {
         add_meta_box(
             'mea_email_settings',
-            __('Email Settings', 'monthly-email-automation'),
+            __('Email Settings', 'email-scheduler'),
             array($this, 'render_email_settings_meta_box'),
             'mea_automated_email',
             'normal',
@@ -64,7 +64,7 @@ class MEA_Admin {
         
         add_meta_box(
             'mea_email_logs',
-            __('Email Logs', 'monthly-email-automation'),
+            __('Email Logs', 'email-scheduler'),
             array($this, 'render_logs_meta_box'),
             'mea_automated_email',
             'side',
@@ -118,21 +118,21 @@ class MEA_Admin {
         ?>
         <table class="form-table">
             <tr>
-                <th><label for="mea_subject"><?php esc_html_e('Email Subject', 'monthly-email-automation'); ?> <span style="color: red;">*</span></label></th>
+                <th><label for="mea_subject"><?php esc_html_e('Email Subject', 'email-scheduler'); ?> <span style="color: red;">*</span></label></th>
                 <td>
                     <input type="text" id="mea_subject" name="mea_subject" value="<?php echo esc_attr($subject); ?>" class="regular-text" required />
-                    <p class="description"><?php esc_html_e('Subject line for the email. This is required and will be used as the email subject when sending.', 'monthly-email-automation'); ?></p>
+                    <p class="description"><?php esc_html_e('Subject line for the email. This is required and will be used as the email subject when sending.', 'email-scheduler'); ?></p>
                 </td>
             </tr>
             <tr>
-                <th><label for="mea_recipients"><?php esc_html_e('Recipients', 'monthly-email-automation'); ?></label></th>
+                <th><label for="mea_recipients"><?php esc_html_e('Recipients', 'email-scheduler'); ?></label></th>
                 <td>
                     <div style="margin-bottom: 10px;">
                         <label for="mea-recipient-list-select" style="display: block; margin-bottom: 5px;">
-                            <strong><?php esc_html_e('Select Saved List:', 'monthly-email-automation'); ?></strong>
+                            <strong><?php esc_html_e('Select Saved List:', 'email-scheduler'); ?></strong>
                         </label>
                         <select id="mea-recipient-list-select" style="width: 100%; max-width: 400px;">
-                            <option value=""><?php esc_html_e('-- Select a saved list or add individual recipients --', 'monthly-email-automation'); ?></option>
+                            <option value=""><?php esc_html_e('-- Select a saved list or add individual recipients --', 'email-scheduler'); ?></option>
                             <?php
                             $saved_lists = get_option('mea_saved_recipients', array());
                             foreach ($saved_lists as $key => $list): ?>
@@ -142,47 +142,47 @@ class MEA_Admin {
                             <?php endforeach; ?>
                         </select>
                         <p class="description" style="margin-top: 5px;">
-                            <?php esc_html_e('Select a saved recipient list, or add individual recipients below.', 'monthly-email-automation'); ?>
-                            <a href="<?php echo esc_url(admin_url('edit.php?post_type=mea_automated_email&page=mea-recipient-lists')); ?>"><?php esc_html_e('Manage lists', 'monthly-email-automation'); ?></a>
+                            <?php esc_html_e('Select a saved recipient list, or add individual recipients below.', 'email-scheduler'); ?>
+                            <a href="<?php echo esc_url(admin_url('edit.php?post_type=mea_automated_email&page=mea-recipient-lists')); ?>"><?php esc_html_e('Manage lists', 'email-scheduler'); ?></a>
                         </p>
                     </div>
                     
                     <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd;">
                         <label style="display: block; margin-bottom: 5px;">
-                            <strong><?php esc_html_e('Individual Recipients:', 'monthly-email-automation'); ?></strong>
+                            <strong><?php esc_html_e('Individual Recipients:', 'email-scheduler'); ?></strong>
                         </label>
                         <div id="mea-recipients-container">
                             <?php if (!empty($recipients_array)): ?>
                                 <?php foreach ($recipients_array as $index => $email): ?>
                                     <div class="mea-recipient-row" style="margin-bottom: 5px;">
                                         <input type="email" name="mea_recipients[]" value="<?php echo esc_attr($email); ?>" class="regular-text" placeholder="email@example.com" />
-                                        <button type="button" class="button mea-remove-recipient"><?php esc_html_e('Remove', 'monthly-email-automation'); ?></button>
+                                        <button type="button" class="button mea-remove-recipient"><?php esc_html_e('Remove', 'email-scheduler'); ?></button>
                                     </div>
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <div class="mea-recipient-row" style="margin-bottom: 5px;">
                                     <input type="email" name="mea_recipients[]" value="" class="regular-text" placeholder="email@example.com" />
-                                    <button type="button" class="button mea-remove-recipient"><?php esc_html_e('Remove', 'monthly-email-automation'); ?></button>
+                                    <button type="button" class="button mea-remove-recipient"><?php esc_html_e('Remove', 'email-scheduler'); ?></button>
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <button type="button" class="button" id="mea-add-recipient"><?php esc_html_e('Add Recipient', 'monthly-email-automation'); ?></button>
+                        <button type="button" class="button" id="mea-add-recipient"><?php esc_html_e('Add Recipient', 'email-scheduler'); ?></button>
                     </div>
                 </td>
             </tr>
             <tr>
-                <th><label for="mea_status"><?php esc_html_e('Status', 'monthly-email-automation'); ?></label></th>
+                <th><label for="mea_status"><?php esc_html_e('Status', 'email-scheduler'); ?></label></th>
                 <td>
                     <select id="mea_status" name="mea_status">
-                        <option value="active" <?php selected($status, 'active'); ?>><?php esc_html_e('Active', 'monthly-email-automation'); ?></option>
-                        <option value="inactive" <?php selected($status, 'inactive'); ?>><?php esc_html_e('Inactive', 'monthly-email-automation'); ?></option>
+                        <option value="active" <?php selected($status, 'active'); ?>><?php esc_html_e('Active', 'email-scheduler'); ?></option>
+                        <option value="inactive" <?php selected($status, 'inactive'); ?>><?php esc_html_e('Inactive', 'email-scheduler'); ?></option>
                     </select>
-                    <p class="description"><?php esc_html_e('Only active emails will be sent automatically.', 'monthly-email-automation'); ?></p>
+                    <p class="description"><?php esc_html_e('Only active emails will be sent automatically.', 'email-scheduler'); ?></p>
                 </td>
             </tr>
             <?php if (!empty($last_sent)): ?>
             <tr>
-                <th><?php esc_html_e('Last Sent', 'monthly-email-automation'); ?></th>
+                <th><?php esc_html_e('Last Sent', 'email-scheduler'); ?></th>
                 <td>
                     <strong><?php echo esc_html($last_sent); ?></strong>
                 </td>
@@ -192,20 +192,20 @@ class MEA_Admin {
         
         <hr style="margin: 20px 0;">
         
-        <h3 style="margin-top: 0;"><?php esc_html_e('Schedule Settings', 'monthly-email-automation'); ?></h3>
+        <h3 style="margin-top: 0;"><?php esc_html_e('Schedule Settings', 'email-scheduler'); ?></h3>
         <table class="form-table">
             <tr>
-                <th><label for="mea_day_of_month"><?php esc_html_e('Day of Month', 'monthly-email-automation'); ?></label></th>
+                <th><label for="mea_day_of_month"><?php esc_html_e('Day of Month', 'email-scheduler'); ?></label></th>
                 <td>
                     <input type="number" id="mea_day_of_month" name="mea_day_of_month" value="<?php echo esc_attr($day_of_month); ?>" min="1" max="31" step="1" class="small-text" style="width: 80px;" />
-                    <p class="description"><?php esc_html_e('Day of the month to send this email (1-31).', 'monthly-email-automation'); ?></p>
+                    <p class="description"><?php esc_html_e('Day of the month to send this email (1-31).', 'email-scheduler'); ?></p>
                 </td>
             </tr>
             <tr>
-                <th><label for="mea_send_time"><?php esc_html_e('Send Time', 'monthly-email-automation'); ?></label></th>
+                <th><label for="mea_send_time"><?php esc_html_e('Send Time', 'email-scheduler'); ?></label></th>
                 <td>
                     <input type="time" id="mea_send_time" name="mea_send_time" value="<?php echo esc_attr($send_time); ?>" />
-                    <p class="description"><?php esc_html_e('Time of day to send the email (24-hour format).', 'monthly-email-automation'); ?></p>
+                    <p class="description"><?php esc_html_e('Time of day to send the email (24-hour format).', 'email-scheduler'); ?></p>
                 </td>
             </tr>
         </table>
@@ -229,23 +229,23 @@ class MEA_Admin {
         ?>
         <table class="form-table">
             <tr>
-                <th><label for="mea_day_of_month"><?php esc_html_e('Day of Month', 'monthly-email-automation'); ?></label></th>
+                <th><label for="mea_day_of_month"><?php esc_html_e('Day of Month', 'email-scheduler'); ?></label></th>
                 <td>
                     <input type="number" id="mea_day_of_month" name="mea_day_of_month" value="<?php echo esc_attr($day_of_month); ?>" min="1" max="31" step="1" class="small-text" style="width: 80px;" />
-                    <p class="description"><?php esc_html_e('Day of the month to send this email (1-31).', 'monthly-email-automation'); ?></p>
+                    <p class="description"><?php esc_html_e('Day of the month to send this email (1-31).', 'email-scheduler'); ?></p>
                 </td>
             </tr>
             <tr>
-                <th><label for="mea_send_time"><?php esc_html_e('Send Time', 'monthly-email-automation'); ?></label></th>
+                <th><label for="mea_send_time"><?php esc_html_e('Send Time', 'email-scheduler'); ?></label></th>
                 <td>
                     <input type="time" id="mea_send_time" name="mea_send_time" value="<?php echo esc_attr($send_time); ?>" />
-                    <p class="description"><?php esc_html_e('Time of day to send the email (24-hour format).', 'monthly-email-automation'); ?></p>
+                    <p class="description"><?php esc_html_e('Time of day to send the email (24-hour format).', 'email-scheduler'); ?></p>
                 </td>
             </tr>
         </table>
         <p class="description">
-            <strong><?php esc_html_e('Note:', 'monthly-email-automation'); ?></strong><br>
-            <?php esc_html_e('The email will be sent on the specified day and time each month. If the day doesn\'t exist in a month (e.g., Feb 30), it will be sent on the last day of that month.', 'monthly-email-automation'); ?>
+            <strong><?php esc_html_e('Note:', 'email-scheduler'); ?></strong><br>
+            <?php esc_html_e('The email will be sent on the specified day and time each month. If the day doesn\'t exist in a month (e.g., Feb 30), it will be sent on the last day of that month.', 'email-scheduler'); ?>
         </p>
         <?php
     }
@@ -273,14 +273,14 @@ class MEA_Admin {
         ?>
         <div class="mea-logs-container">
             <?php if (empty($logs)): ?>
-                <p><?php esc_html_e('No emails sent yet.', 'monthly-email-automation'); ?></p>
+                <p><?php esc_html_e('No emails sent yet.', 'email-scheduler'); ?></p>
             <?php else: ?>
                 <table class="widefat">
                     <thead>
                         <tr>
-                            <th><?php esc_html_e('Recipient', 'monthly-email-automation'); ?></th>
-                            <th><?php esc_html_e('Sent At', 'monthly-email-automation'); ?></th>
-                            <th><?php esc_html_e('Status', 'monthly-email-automation'); ?></th>
+                            <th><?php esc_html_e('Recipient', 'email-scheduler'); ?></th>
+                            <th><?php esc_html_e('Sent At', 'email-scheduler'); ?></th>
+                            <th><?php esc_html_e('Status', 'email-scheduler'); ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -290,9 +290,9 @@ class MEA_Admin {
                                 <td><?php echo esc_html($log->sent_at); ?></td>
                                 <td>
                                     <?php if ($log->status === 'sent'): ?>
-                                        <span style="color: green;"><?php esc_html_e('Sent', 'monthly-email-automation'); ?></span>
+                                        <span style="color: green;"><?php esc_html_e('Sent', 'email-scheduler'); ?></span>
                                     <?php else: ?>
-                                        <span style="color: red;"><?php esc_html_e('Failed', 'monthly-email-automation'); ?></span>
+                                        <span style="color: red;"><?php esc_html_e('Failed', 'email-scheduler'); ?></span>
                                         <?php if (!empty($log->error_message)): ?>
                                             <br><small><?php echo esc_html($log->error_message); ?></small>
                                         <?php endif; ?>
@@ -392,11 +392,11 @@ class MEA_Admin {
         $new_columns = array();
         $new_columns['cb'] = $columns['cb'];
         $new_columns['title'] = $columns['title'];
-        $new_columns['mea_subject'] = __('Email Subject', 'monthly-email-automation');
-        $new_columns['mea_recipients'] = __('Recipients', 'monthly-email-automation');
-        $new_columns['mea_schedule'] = __('Schedule', 'monthly-email-automation');
-        $new_columns['mea_status'] = __('Status', 'monthly-email-automation');
-        $new_columns['mea_last_sent'] = __('Last Sent', 'monthly-email-automation');
+        $new_columns['mea_subject'] = __('Email Subject', 'email-scheduler');
+        $new_columns['mea_recipients'] = __('Recipients', 'email-scheduler');
+        $new_columns['mea_schedule'] = __('Schedule', 'email-scheduler');
+        $new_columns['mea_status'] = __('Status', 'email-scheduler');
+        $new_columns['mea_last_sent'] = __('Last Sent', 'email-scheduler');
         $new_columns['date'] = $columns['date'];
         
         return $new_columns;
@@ -422,7 +422,7 @@ class MEA_Admin {
                     $recipients_array = json_decode($recipients, true);
                     if (is_array($recipients_array)) {
                         // translators: %d is the number of recipients
-                        echo esc_html(sprintf(_n('%d recipient', '%d recipients', count($recipients_array), 'monthly-email-automation'), count($recipients_array)));
+                        echo esc_html(sprintf(_n('%d recipient', '%d recipients', count($recipients_array), 'email-scheduler'), count($recipients_array)));
                     } else {
                         echo '—';
                     }
@@ -436,7 +436,7 @@ class MEA_Admin {
                 $time = get_post_meta($post_id, '_mea_send_time', true);
                 if (!empty($day) && !empty($time)) {
                     // translators: %1$s is the day of month, %2$s is the time
-                    echo esc_html(sprintf(__('Day %1$s at %2$s', 'monthly-email-automation'), $day, $time));
+                    echo esc_html(sprintf(__('Day %1$s at %2$s', 'email-scheduler'), $day, $time));
                 } else {
                     echo '—';
                 }
@@ -445,9 +445,9 @@ class MEA_Admin {
             case 'mea_status':
                 $status = get_post_meta($post_id, '_mea_status', true);
                 if ($status === 'active') {
-                    echo '<span style="color: green;">' . esc_html__('Active', 'monthly-email-automation') . '</span>';
+                    echo '<span style="color: green;">' . esc_html__('Active', 'email-scheduler') . '</span>';
                 } else {
-                    echo '<span style="color: gray;">' . esc_html__('Inactive', 'monthly-email-automation') . '</span>';
+                    echo '<span style="color: gray;">' . esc_html__('Inactive', 'email-scheduler') . '</span>';
                 }
                 break;
                 
@@ -473,7 +473,7 @@ class MEA_Admin {
         
         wp_enqueue_script(
             'mea-admin-js',
-            MEA_PLUGIN_URL . 'assets/js/admin.js',
+            MEA_PLUGIN_DIR_URL . 'assets/js/admin.js',
             array('jquery'),
             MEA_PLUGIN_VERSION,
             true
@@ -497,7 +497,7 @@ class MEA_Admin {
         check_ajax_referer('mea_recipients_nonce', 'nonce');
         
         if (!current_user_can('edit_posts')) {
-            wp_send_json_error(array('message' => __('Permission denied.', 'monthly-email-automation')));
+            wp_send_json_error(array('message' => __('Permission denied.', 'email-scheduler')));
         }
         
         $name = isset($_POST['name']) ? sanitize_text_field(wp_unslash($_POST['name'])) : '';
@@ -505,11 +505,11 @@ class MEA_Admin {
         $recipients_raw = isset($_POST['recipients']) ? wp_unslash($_POST['recipients']) : array();
         
         if (empty($name)) {
-            wp_send_json_error(array('message' => __('List name cannot be empty.', 'monthly-email-automation')));
+            wp_send_json_error(array('message' => __('List name cannot be empty.', 'email-scheduler')));
         }
         
         if (!is_array($recipients_raw) || empty($recipients_raw)) {
-            wp_send_json_error(array('message' => __('No recipients provided.', 'monthly-email-automation')));
+            wp_send_json_error(array('message' => __('No recipients provided.', 'email-scheduler')));
         }
         
         // Sanitize recipients
@@ -522,7 +522,7 @@ class MEA_Admin {
         }
         
         if (empty($recipients)) {
-            wp_send_json_error(array('message' => __('No valid recipients provided.', 'monthly-email-automation')));
+            wp_send_json_error(array('message' => __('No valid recipients provided.', 'email-scheduler')));
         }
         
         // Get existing lists
@@ -543,9 +543,9 @@ class MEA_Admin {
         );
         
         if (update_option('mea_saved_recipients', $saved_lists)) {
-            wp_send_json_success(array('message' => __('Recipient list saved successfully.', 'monthly-email-automation')));
+            wp_send_json_success(array('message' => __('Recipient list saved successfully.', 'email-scheduler')));
         } else {
-            wp_send_json_error(array('message' => __('Failed to save recipient list.', 'monthly-email-automation')));
+            wp_send_json_error(array('message' => __('Failed to save recipient list.', 'email-scheduler')));
         }
     }
     
@@ -556,19 +556,19 @@ class MEA_Admin {
         check_ajax_referer('mea_recipients_nonce', 'nonce');
         
         if (!current_user_can('edit_posts')) {
-            wp_send_json_error(array('message' => __('Permission denied.', 'monthly-email-automation')));
+            wp_send_json_error(array('message' => __('Permission denied.', 'email-scheduler')));
         }
         
         $key = isset($_POST['key']) ? sanitize_text_field(wp_unslash($_POST['key'])) : '';
         
         if (empty($key)) {
-            wp_send_json_error(array('message' => __('No list selected.', 'monthly-email-automation')));
+            wp_send_json_error(array('message' => __('No list selected.', 'email-scheduler')));
         }
         
         $saved_lists = get_option('mea_saved_recipients', array());
         
         if (!isset($saved_lists[$key])) {
-            wp_send_json_error(array('message' => __('Recipient list not found.', 'monthly-email-automation')));
+            wp_send_json_error(array('message' => __('Recipient list not found.', 'email-scheduler')));
         }
         
         wp_send_json_success(array(
@@ -584,27 +584,27 @@ class MEA_Admin {
         check_ajax_referer('mea_recipients_nonce', 'nonce');
         
         if (!current_user_can('edit_posts')) {
-            wp_send_json_error(array('message' => __('Permission denied.', 'monthly-email-automation')));
+            wp_send_json_error(array('message' => __('Permission denied.', 'email-scheduler')));
         }
         
         $key = isset($_POST['key']) ? sanitize_text_field(wp_unslash($_POST['key'])) : '';
         
         if (empty($key)) {
-            wp_send_json_error(array('message' => __('No list selected.', 'monthly-email-automation')));
+            wp_send_json_error(array('message' => __('No list selected.', 'email-scheduler')));
         }
         
         $saved_lists = get_option('mea_saved_recipients', array());
         
         if (!isset($saved_lists[$key])) {
-            wp_send_json_error(array('message' => __('Recipient list not found.', 'monthly-email-automation')));
+            wp_send_json_error(array('message' => __('Recipient list not found.', 'email-scheduler')));
         }
         
         unset($saved_lists[$key]);
         
         if (update_option('mea_saved_recipients', $saved_lists)) {
-            wp_send_json_success(array('message' => __('Recipient list deleted successfully.', 'monthly-email-automation')));
+            wp_send_json_success(array('message' => __('Recipient list deleted successfully.', 'email-scheduler')));
         } else {
-            wp_send_json_error(array('message' => __('Failed to delete recipient list.', 'monthly-email-automation')));
+            wp_send_json_error(array('message' => __('Failed to delete recipient list.', 'email-scheduler')));
         }
     }
     
@@ -642,7 +642,7 @@ class MEA_Admin {
                     );
                     
                     update_option('mea_saved_recipients', $saved_lists);
-                    echo '<div class="notice notice-success"><p>' . esc_html__('Recipient list saved successfully!', 'monthly-email-automation') . '</p></div>';
+                    echo '<div class="notice notice-success"><p>' . esc_html__('Recipient list saved successfully!', 'email-scheduler') . '</p></div>';
                 }
             }
         }
@@ -654,58 +654,58 @@ class MEA_Admin {
             if (isset($saved_lists[$key])) {
                 unset($saved_lists[$key]);
                 update_option('mea_saved_recipients', $saved_lists);
-                echo '<div class="notice notice-success"><p>' . esc_html__('Recipient list deleted successfully!', 'monthly-email-automation') . '</p></div>';
+                echo '<div class="notice notice-success"><p>' . esc_html__('Recipient list deleted successfully!', 'email-scheduler') . '</p></div>';
             }
         }
         
         $saved_lists = get_option('mea_saved_recipients', array());
         ?>
         <div class="wrap">
-            <h1><?php esc_html_e('Recipient Lists', 'monthly-email-automation'); ?></h1>
-            <p><?php esc_html_e('Manage your saved recipient lists. These lists can be reused across multiple automated emails.', 'monthly-email-automation'); ?></p>
+            <h1><?php esc_html_e('Recipient Lists', 'email-scheduler'); ?></h1>
+            <p><?php esc_html_e('Manage your saved recipient lists. These lists can be reused across multiple automated emails.', 'email-scheduler'); ?></p>
             
             <div style="display: flex; gap: 20px; margin-top: 20px;">
                 <div style="flex: 1;">
-                    <h2><?php esc_html_e('Add New List', 'monthly-email-automation'); ?></h2>
+                    <h2><?php esc_html_e('Add New List', 'email-scheduler'); ?></h2>
                     <form method="post" action="">
                         <?php wp_nonce_field('mea_save_recipient_list', 'mea_recipient_list_nonce'); ?>
                         <table class="form-table">
                             <tr>
-                                <th><label for="list_name"><?php esc_html_e('List Name', 'monthly-email-automation'); ?></label></th>
+                                <th><label for="list_name"><?php esc_html_e('List Name', 'email-scheduler'); ?></label></th>
                                 <td>
                                     <input type="text" id="list_name" name="list_name" class="regular-text" required />
                                 </td>
                             </tr>
                             <tr>
-                                <th><label for="recipients"><?php esc_html_e('Recipients', 'monthly-email-automation'); ?></label></th>
+                                <th><label for="recipients"><?php esc_html_e('Recipients', 'email-scheduler'); ?></label></th>
                                 <td>
                                     <div id="mea-admin-recipients-container">
                                         <div class="mea-recipient-row" style="margin-bottom: 5px;">
                                             <input type="email" name="recipients[]" class="regular-text" placeholder="email@example.com" />
-                                            <button type="button" class="button mea-remove-recipient"><?php esc_html_e('Remove', 'monthly-email-automation'); ?></button>
+                                            <button type="button" class="button mea-remove-recipient"><?php esc_html_e('Remove', 'email-scheduler'); ?></button>
                                         </div>
                                     </div>
-                                    <button type="button" class="button" id="mea-admin-add-recipient"><?php esc_html_e('Add Recipient', 'monthly-email-automation'); ?></button>
+                                    <button type="button" class="button" id="mea-admin-add-recipient"><?php esc_html_e('Add Recipient', 'email-scheduler'); ?></button>
                                 </td>
                             </tr>
                         </table>
                         <p class="submit">
-                            <input type="submit" name="mea_save_list" class="button button-primary" value="<?php esc_attr_e('Save List', 'monthly-email-automation'); ?>" />
+                            <input type="submit" name="mea_save_list" class="button button-primary" value="<?php esc_attr_e('Save List', 'email-scheduler'); ?>" />
                         </p>
                     </form>
                 </div>
                 
                 <div style="flex: 1;">
-                    <h2><?php esc_html_e('Saved Lists', 'monthly-email-automation'); ?></h2>
+                    <h2><?php esc_html_e('Saved Lists', 'email-scheduler'); ?></h2>
                     <?php if (empty($saved_lists)): ?>
-                        <p><?php esc_html_e('No recipient lists saved yet.', 'monthly-email-automation'); ?></p>
+                        <p><?php esc_html_e('No recipient lists saved yet.', 'email-scheduler'); ?></p>
                     <?php else: ?>
                         <table class="wp-list-table widefat fixed striped">
                             <thead>
                                 <tr>
-                                    <th><?php esc_html_e('List Name', 'monthly-email-automation'); ?></th>
-                                    <th><?php esc_html_e('Recipients', 'monthly-email-automation'); ?></th>
-                                    <th><?php esc_html_e('Actions', 'monthly-email-automation'); ?></th>
+                                    <th><?php esc_html_e('List Name', 'email-scheduler'); ?></th>
+                                    <th><?php esc_html_e('Recipients', 'email-scheduler'); ?></th>
+                                    <th><?php esc_html_e('Actions', 'email-scheduler'); ?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -713,9 +713,9 @@ class MEA_Admin {
                                     <tr>
                                         <td><strong><?php echo esc_html($list['name']); ?></strong></td>
                                         <td>
-                                            <?php echo count($list['recipients']); ?> <?php esc_html_e('recipients', 'monthly-email-automation'); ?>
+                                            <?php echo count($list['recipients']); ?> <?php esc_html_e('recipients', 'email-scheduler'); ?>
                                             <details style="margin-top: 5px;">
-                                                <summary style="cursor: pointer; color: #0073aa;"><?php esc_html_e('View emails', 'monthly-email-automation'); ?></summary>
+                                                <summary style="cursor: pointer; color: #0073aa;"><?php esc_html_e('View emails', 'email-scheduler'); ?></summary>
                                                 <ul style="margin: 5px 0 0 20px;">
                                                     <?php foreach ($list['recipients'] as $email): ?>
                                                         <li><?php echo esc_html($email); ?></li>
@@ -726,8 +726,8 @@ class MEA_Admin {
                                         <td>
                                             <a href="<?php echo esc_url(wp_nonce_url(add_query_arg(array('delete' => $key)), 'delete_recipient_list_' . $key)); ?>" 
                                                class="button button-small" 
-                                               onclick="return confirm('<?php esc_attr_e('Are you sure you want to delete this list?', 'monthly-email-automation'); ?>');">
-                                                <?php esc_html_e('Delete', 'monthly-email-automation'); ?>
+                                               onclick="return confirm('<?php esc_attr_e('Are you sure you want to delete this list?', 'email-scheduler'); ?>');">
+                                                <?php esc_html_e('Delete', 'email-scheduler'); ?>
                                             </a>
                                         </td>
                                     </tr>
@@ -745,7 +745,7 @@ class MEA_Admin {
             $('#mea-admin-add-recipient').on('click', function() {
                 var newRow = $('<div class="mea-recipient-row" style="margin-bottom: 5px;">' +
                     '<input type="email" name="recipients[]" class="regular-text" placeholder="email@example.com" />' +
-                    '<button type="button" class="button mea-remove-recipient"><?php esc_js_e('Remove', 'monthly-email-automation'); ?></button>' +
+                    '<button type="button" class="button mea-remove-recipient"><?php esc_js_e('Remove', 'email-scheduler'); ?></button>' +
                     '</div>');
                 $('#mea-admin-recipients-container').append(newRow);
             });

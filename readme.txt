@@ -1,12 +1,12 @@
 === Email Scheduler ===
 Contributors: elearningevolve
-Donate link: https://elearningevolve.com/about/
+Donate link: https://link.elearningevolve.com/self-pay
 Tags: email, automation, newsletters, scheduled, wp-mail
 Requires at least: 6.0
 Tested up to: 6.8
-Requires PHP: 7.4
 Stable tag: 1.0.0
-License: GPL-3.0+
+Requires PHP: 7.4
+License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Schedule and automate recurring email campaigns, newsletters, and recurring emails. Send automated emails to multiple recipients with WordPress cron.

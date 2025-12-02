@@ -3,7 +3,7 @@
  * Custom Post Type for Automated Emails
  */
 
-if (!defined('ABSPATH')) {
+if ( ! defined('ABSPATH')) {
     exit;
 }
 
@@ -20,38 +20,38 @@ class MEA_Post_Type {
      */
     public function register_post_type() {
         $labels = array(
-            'name'                  => _x('Automated Emails', 'Post Type General Name', 'monthly-email-automation'),
-            'singular_name'         => _x('Automated Email', 'Post Type Singular Name', 'monthly-email-automation'),
-            'menu_name'             => __('Email Scheduler', 'monthly-email-automation'),
-            'name_admin_bar'        => __('Automated Email', 'monthly-email-automation'),
-            'archives'              => __('Email Archives', 'monthly-email-automation'),
-            'attributes'            => __('Email Attributes', 'monthly-email-automation'),
-            'parent_item_colon'     => __('Parent Email:', 'monthly-email-automation'),
-            'all_items'             => __('All Emails', 'monthly-email-automation'),
-            'add_new_item'          => __('Add New Email', 'monthly-email-automation'),
-            'add_new'               => __('Add New', 'monthly-email-automation'),
-            'new_item'              => __('New Email', 'monthly-email-automation'),
-            'edit_item'             => __('Edit Email', 'monthly-email-automation'),
-            'update_item'           => __('Update Email', 'monthly-email-automation'),
-            'view_item'             => __('View Email', 'monthly-email-automation'),
-            'view_items'            => __('View Emails', 'monthly-email-automation'),
-            'search_items'          => __('Search Email', 'monthly-email-automation'),
-            'not_found'             => __('Not found', 'monthly-email-automation'),
-            'not_found_in_trash'    => __('Not found in Trash', 'monthly-email-automation'),
-            'featured_image'        => __('Featured Image', 'monthly-email-automation'),
-            'set_featured_image'    => __('Set featured image', 'monthly-email-automation'),
-            'remove_featured_image' => __('Remove featured image', 'monthly-email-automation'),
-            'use_featured_image'    => __('Use as featured image', 'monthly-email-automation'),
-            'insert_into_item'      => __('Insert into email', 'monthly-email-automation'),
-            'uploaded_to_this_item' => __('Uploaded to this email', 'monthly-email-automation'),
-            'items_list'            => __('Emails list', 'monthly-email-automation'),
-            'items_list_navigation' => __('Emails list navigation', 'monthly-email-automation'),
-            'filter_items_list'     => __('Filter emails list', 'monthly-email-automation'),
+            'name'                  => _x('Automated Emails', 'Post Type General Name', 'email-scheduler'),
+            'singular_name'         => _x('Automated Email', 'Post Type Singular Name', 'email-scheduler'),
+            'menu_name'             => __('Email Scheduler', 'email-scheduler'),
+            'name_admin_bar'        => __('Automated Email', 'email-scheduler'),
+            'archives'              => __('Email Archives', 'email-scheduler'),
+            'attributes'            => __('Email Attributes', 'email-scheduler'),
+            'parent_item_colon'     => __('Parent Email:', 'email-scheduler'),
+            'all_items'             => __('All Emails', 'email-scheduler'),
+            'add_new_item'          => __('Add New Email', 'email-scheduler'),
+            'add_new'               => __('Add New', 'email-scheduler'),
+            'new_item'              => __('New Email', 'email-scheduler'),
+            'edit_item'             => __('Edit Email', 'email-scheduler'),
+            'update_item'           => __('Update Email', 'email-scheduler'),
+            'view_item'             => __('View Email', 'email-scheduler'),
+            'view_items'            => __('View Emails', 'email-scheduler'),
+            'search_items'          => __('Search Email', 'email-scheduler'),
+            'not_found'             => __('Not found', 'email-scheduler'),
+            'not_found_in_trash'    => __('Not found in Trash', 'email-scheduler'),
+            'featured_image'        => __('Featured Image', 'email-scheduler'),
+            'set_featured_image'    => __('Set featured image', 'email-scheduler'),
+            'remove_featured_image' => __('Remove featured image', 'email-scheduler'),
+            'use_featured_image'    => __('Use as featured image', 'email-scheduler'),
+            'insert_into_item'      => __('Insert into email', 'email-scheduler'),
+            'uploaded_to_this_item' => __('Uploaded to this email', 'email-scheduler'),
+            'items_list'            => __('Emails list', 'email-scheduler'),
+            'items_list_navigation' => __('Emails list navigation', 'email-scheduler'),
+            'filter_items_list'     => __('Filter emails list', 'email-scheduler'),
         );
         
         $args = array(
-            'label'                 => __('Automated Email', 'monthly-email-automation'),
-            'description'           => __('Scheduled automated emails', 'monthly-email-automation'),
+            'label'                 => __('Automated Email', 'email-scheduler'),
+            'description'           => __('Scheduled automated emails', 'email-scheduler'),
             'labels'                => $labels,
             'supports'              => array('title', 'editor', 'thumbnail'),
             'hierarchical'          => false,
