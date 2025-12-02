@@ -22,7 +22,7 @@ class MEA_Post_Type {
         $labels = array(
             'name'                  => _x('Automated Emails', 'Post Type General Name', 'monthly-email-automation'),
             'singular_name'         => _x('Automated Email', 'Post Type Singular Name', 'monthly-email-automation'),
-            'menu_name'             => __('Monthly Emails', 'monthly-email-automation'),
+            'menu_name'             => __('Email Scheduler', 'monthly-email-automation'),
             'name_admin_bar'        => __('Automated Email', 'monthly-email-automation'),
             'archives'              => __('Email Archives', 'monthly-email-automation'),
             'attributes'            => __('Email Attributes', 'monthly-email-automation'),
@@ -51,7 +51,7 @@ class MEA_Post_Type {
         
         $args = array(
             'label'                 => __('Automated Email', 'monthly-email-automation'),
-            'description'           => __('Monthly automated emails', 'monthly-email-automation'),
+            'description'           => __('Scheduled automated emails', 'monthly-email-automation'),
             'labels'                => $labels,
             'supports'              => array('title', 'editor', 'thumbnail'),
             'hierarchical'          => false,

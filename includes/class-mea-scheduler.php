@@ -1,6 +1,6 @@
 <?php
 /**
- * Scheduler for Monthly Email Automation
+ * Scheduler for Email Scheduler
  */
 
 if (!defined('ABSPATH')) {

@@ -1,11 +1,11 @@
 <?php
 /**
  * @since             1.0.0
- * @package           Monthly Email Automation
+ * @package           Email Scheduler
  *
- * Plugin Name:       Monthly Email Automation
- * Plugin URI:        https://wordpress.org/plugins/monthly-email-automation/
- * Description:       Schedule and automate monthly email campaigns, newsletters, and recurring emails. Send automated emails to multiple recipients with WordPress cron. Track delivery logs and manage recipient lists.
+ * Plugin Name:       Email Scheduler
+ * Plugin URI:        https://wordpress.org/plugins/email-scheduler/
+ * Description:       Schedule and automate recurring email campaigns, newsletters, and recurring emails. Send automated emails to multiple recipients with WordPress cron. Track delivery logs and manage recipient lists.
  * Version:           1.0.0
  * Author:            eLearning evolve
  * Author URI:        https://elearningevolve.com/about/

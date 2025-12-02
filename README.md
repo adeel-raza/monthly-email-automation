@@ -1,17 +1,17 @@
-# Monthly Email Automation
+# Email Scheduler
 
 [![WordPress](https://img.shields.io/badge/WordPress-6.0%2B-blue.svg)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.4%2B-purple.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/License-GPL--3.0%2B-green.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
 [![WordPress Plugin](https://img.shields.io/badge/WordPress-Plugin-orange.svg)](https://wordpress.org/plugins/monthly-email-automation/)
 
-> **Schedule and automate monthly email campaigns, newsletters, and recurring emails. Send automated emails to multiple recipients with WordPress cron. Track delivery logs and manage recipient lists.**
+> **Schedule and automate recurring email campaigns, newsletters, and recurring emails. Send automated emails to multiple recipients with WordPress cron. Track delivery logs and manage recipient lists.**
 
-Monthly Email Automation is a powerful WordPress plugin that enables you to schedule, automate, and manage recurring email campaigns directly from your WordPress admin dashboard. Perfect for monthly newsletters, automated email marketing, scheduled announcements, recurring reminders, and any monthly email communications.
+Email Scheduler is a powerful WordPress plugin that enables you to schedule, automate, and manage recurring email campaigns directly from your WordPress admin dashboard. Perfect for recurring newsletters, automated email marketing, scheduled announcements, recurring reminders, and any recurring email communications.
 
 ## 🚀 Features
 
-- ✅ **Unlimited Automated Emails** - Create as many monthly email campaigns as you need
+- ✅ **Unlimited Automated Emails** - Create as many recurring email campaigns as you need
 - ✅ **Flexible Scheduling** - Set any day of the month (1-31) and specific time for automatic delivery
 - ✅ **Multiple Recipients** - Send to unlimited email addresses per campaign
 - ✅ **Recipient List Management** - Save recipient lists and reuse them across multiple email campaigns
@@ -34,7 +34,7 @@ Monthly Email Automation is a powerful WordPress plugin that enables you to sche
 ### Automatic Installation
 
 1. Go to **Plugins → Add New** in your WordPress admin
-2. Search for "Monthly Email Automation"
+2. Search for "Email Scheduler"
 3. Click **Install Now**
 4. Activate the plugin
 
@@ -43,7 +43,7 @@ Monthly Email Automation is a powerful WordPress plugin that enables you to sche
 1. Download the plugin ZIP file
 2. Upload the `monthly-email-automation` folder to `/wp-content/plugins/`
 3. Activate the plugin through the **Plugins** menu in WordPress
-4. Go to **Monthly Emails** in the admin menu to create your first automated email
+4. Go to **recurring emails** in the admin menu to create your first automated email
 
 ### Installation via Git
 
@@ -55,7 +55,7 @@ git clone https://github.com/yourusername/monthly-email-automation.git
 ## 🎯 Quick Start
 
 1. **Create Your First Email**
-   - Navigate to **Monthly Emails → Add New** in WordPress admin
+   - Navigate to **recurring emails → Add New** in WordPress admin
    - Enter a title for your email campaign
 
 2. **Add Recipients**
@@ -77,7 +77,7 @@ git clone https://github.com/yourusername/monthly-email-automation.git
 
 ## 💡 Use Cases
 
-- **Newsletter Automation** - Send monthly newsletters to subscribers automatically
+- **Newsletter Automation** - Send recurring newsletters to subscribers automatically
 - **Email Marketing** - Schedule recurring promotional emails and campaigns
 - **Monthly Reports** - Automate monthly reports to clients, team members, or stakeholders
 - **Reminders & Notifications** - Send recurring reminders, notifications, and announcements
@@ -90,7 +90,7 @@ git clone https://github.com/yourusername/monthly-email-automation.git
 
 The plugin uses WordPress cron to automatically check daily for scheduled emails. When the scheduled day and time arrives, emails are automatically sent to all configured recipients.
 
-1. Create a new "Monthly Email" post
+1. Create a new "recurring email" post
 2. Add recipients (email addresses)
 3. Write your email content using the WordPress editor
 4. Set the day of month and time to send
@@ -99,7 +99,7 @@ The plugin uses WordPress cron to automatically check daily for scheduled emails
 
 ## ❓ Frequently Asked Questions
 
-### How does monthly email automation work?
+### How does recurring email automation work?
 
 The plugin uses WordPress cron to automatically check daily for scheduled emails. When the scheduled day and time arrives, emails are automatically sent to all configured recipients.
 
@@ -184,7 +184,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ### 1.0.0 (Initial Release)
 
-- Create unlimited automated monthly emails
+- Create unlimited automated recurring emails
 - Schedule emails by day of month and time
 - Multiple recipients support
 - Save and reuse recipient lists
@@ -233,4 +233,4 @@ If you find this plugin useful, please consider:
 
 ---
 
-**Keywords:** WordPress email automation, scheduled emails, monthly newsletters, recurring emails, email campaigns, WordPress cron, automated emails, email marketing, SMTP compatible, email delivery tracking
+**Keywords:** WordPress email automation, scheduled emails, recurring newsletters, recurring emails, email campaigns, WordPress cron, automated emails, email marketing, SMTP compatible, email delivery tracking
