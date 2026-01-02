@@ -113,6 +113,7 @@ The plugin checks daily for scheduled emails and automatically sends them when t
 
 
 
+
 == Installation ==
 
 = Automatic Installation =
