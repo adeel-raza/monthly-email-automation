@@ -111,3 +111,20 @@ The plugin checks daily for scheduled emails and automatically sends them when t
 3. Activate the plugin through the **Plugins** menu in WordPress
 4. Go to **Recurring Emails** in the admin menu to create your first automated email
 
+
+
+== Installation ==
+
+= Automatic Installation =
+
+1. Go to **Plugins → Add New** in your WordPress admin
+2. Search for "Simple Email Scheduler"
+3. Click **Install Now**
+4. Click **Activate**
+
+= Manual Installation =
+
+1. Download the plugin ZIP file
+2. Upload the `simple-email-scheduler` folder to `/wp-content/plugins/`
+3. Activate the plugin through the **Plugins** menu in WordPress
+4. Go to **Recurring Emails** in the admin menu to create your first automated email
