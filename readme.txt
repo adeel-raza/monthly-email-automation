@@ -196,6 +196,22 @@ WordPress cron runs when your site receives traffic. If your site doesn't receiv
 = 1.0.0 =
 Initial release of Simple Email Scheduler. Install to start automating your recurring email campaigns.
 
+== Installation ==
+
+= Automatic Installation =
+
+1. Go to **Plugins → Add New** in your WordPress admin
+2. Search for "Simple Email Scheduler"
+3. Click **Install Now**
+4. Click **Activate**
+
+= Manual Installation =
+
+1. Download the plugin ZIP file
+2. Upload the `simple-email-scheduler` folder to `/wp-content/plugins/`
+3. Activate the plugin through the **Plugins** menu in WordPress
+4. Go to **Recurring Emails** in the admin menu to create your first automated email
+
 == Support ==
 
 For support, feature requests, or bug reports, please visit the [WordPress.org support forum](https://wordpress.org/support/plugin/simple-email-scheduler/) or [open an issue on GitHub](https://github.com/adeel-raza/monthly-email-automation/issues).
