@@ -1,0 +1,35 @@
+# WordPress
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+*.save
+*.tmp
+*.swp
+*~
+
+# Logs
+logs/
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Node
+node_modules/
+package-lock.json
+yarn.lock
+
+# Environment
+.env
+.env.local
+
+# SVN (exclude from Git)
+.svn/
