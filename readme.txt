@@ -196,14 +196,6 @@ WordPress cron runs when your site receives traffic. If your site doesn't receiv
 = 1.0.0 =
 Initial release of Simple Email Scheduler. Install to start automating your recurring email campaigns.
 
-== Development ==
-
-**Contributors**: adeelraza_786hotmailcom, elearningevolve
-
-**Donate**: [Support this plugin](https://link.elearningevolve.com/self-pay)
-
-**GitHub**: [View on GitHub](https://github.com/adeel-raza/monthly-email-automation)
-
 == Support ==
 
 For support, feature requests, or bug reports, please visit the [WordPress.org support forum](https://wordpress.org/support/plugin/simple-email-scheduler/) or [open an issue on GitHub](https://github.com/adeel-raza/monthly-email-automation/issues).
