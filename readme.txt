@@ -9,7 +9,6 @@ Requires PHP: 7.4
 License: GPLv3 or later
 Schedule recurring newsletters and automated emails with WordPress cron, reusable recipient lists, and built-in delivery logs.
 
-Schedule recurring newsletters and automated emails with WordPress cron, reusable recipient lists, and built-in delivery logs. Perfect for monthly newsletters, email marketing campaigns, and automated email communications.
 
 == Description ==
 
