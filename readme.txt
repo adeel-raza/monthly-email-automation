@@ -7,7 +7,7 @@ Tested up to: 6.9
 Stable tag: 1.0.0
 Requires PHP: 7.4
 License: GPLv3 or later
-License URI: https://www.gnu.org/licenses/gpl-3.0.html
+Schedule recurring newsletters and automated emails with WordPress cron, reusable recipient lists, and built-in delivery logs.
 
 Schedule recurring newsletters and automated emails with WordPress cron, reusable recipient lists, and built-in delivery logs. Perfect for monthly newsletters, email marketing campaigns, and automated email communications.
 
